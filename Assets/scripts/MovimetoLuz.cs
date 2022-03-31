@@ -10,12 +10,14 @@ public class Movimentp : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(0, 3, 5);
+        
     }
 
 
     void Update()
     {
-        
+       if (transform.position.x >= 0)
+      transform.position = new Vector3(-1, 3, 5);
     }
+
 }
