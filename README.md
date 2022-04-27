@@ -1,4 +1,6 @@
 # CGS - Projeto Final
+André Ferreira / Liliana Fernandes
+Grupo 5
 ## Mecânicas:
 - Movimento é livre em todas as direções e eixos;
 - O jogo terá 3 níveis ligados entre si por uma “porta” fechada;
