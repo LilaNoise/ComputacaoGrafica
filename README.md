@@ -1,5 +1,5 @@
 # CGS - Projeto Final
-André Ferreira / Liliana Fernandes
+André Ferreira / Liliana Fernandes/ Jaime Barata
 Grupo 5
 ## Mecânicas:
 - Movimento é livre em todas as direções e eixos;
