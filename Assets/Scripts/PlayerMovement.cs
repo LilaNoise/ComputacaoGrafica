@@ -13,7 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private float turnSmooth;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float gravityValue = -9.81f;
+    private float gravity = -9.81f;
+
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
 
     void Start()
     {
@@ -22,6 +26,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        groundedPlayer = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            playerVelocity.y = -2f;
+        }
+
+        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        {
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -36,12 +55,8 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
 
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        //playerVelocity.y += gravity * Time.deltaTime;
+        //controller.Move(playerVelocity * Time.deltaTime);
     }
 }
