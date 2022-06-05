@@ -4,59 +4,49 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform cam;
-    public float speed;
-    public float jumpHeight;
+    public CharacterController controller;
 
-    private CharacterController controller;
-    private float turnSpeed = 0.2f;
-    private float turnSmooth;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private float gravity = -9.81f;
+    public float speed = 12f;
+    public float gravity = -9.81f;
+    public float jumpH;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    public Transform groundC;
+    public float groundD;
+    public LayerMask groundM;
 
+    Vector3 velocity;
+    bool isG;
+
+    // Start is called before the first frame update
     void Start()
     {
-        controller = gameObject.GetComponent<CharacterController>();
+        
     }
 
+    // Update is called once per frame
     void Update()
     {
-        groundedPlayer = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (groundedPlayer && playerVelocity.y < 0)
+        isG = Physics.CheckSphere(groundC.position, groundD, groundM);
+        
+        if (isG && velocity.y < 0)
         {
-            playerVelocity.y = -2f;
+            velocity.y = -4f;
         }
 
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        controller.Move(move * speed * Time.deltaTime);
+
+        if (Input.GetButtonDown("Jump") && isG)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            velocity.y = Mathf.Sqrt(jumpH * -2f * gravity);
         }
 
-        playerVelocity.y += gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        if (direction.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmooth, turnSpeed);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
-        }
-
-
-        //playerVelocity.y += gravity * Time.deltaTime;
-        //controller.Move(playerVelocity * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
     }
 }
