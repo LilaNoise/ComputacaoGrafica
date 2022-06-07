@@ -5,12 +5,22 @@ using UnityEngine;
 public class DoorOpen : MonoBehaviour
 {
     public GameObject key;
-    void OnCollisionEnter()
+    public Animator anim;
+
+    AudioSource som;
+
+    private void Start()
     {
-        if (key.tag == "Key")
+        som = GetComponent<AudioSource>();
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Key")
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             key.SetActive(false);
+            anim.SetBool("isOpen", true);
+            som.Play();
         }            
     }
 

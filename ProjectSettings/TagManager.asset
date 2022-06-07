@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Key
+  - Interactable
+  - PickUp
+  - Place
+  - Cube
+  - CubeA
+  - CubeB
+  - B
+  - A
   layers:
   - Default
   - TransparentFX
