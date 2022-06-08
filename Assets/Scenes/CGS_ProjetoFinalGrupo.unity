@@ -4351,7 +4351,7 @@ MonoBehaviour:
   - {fileID: 509144930}
   - {fileID: 193594391}
   - {fileID: 1894154401}
-  speed: 10
+  speed: 5
 --- !u!136 &355304262
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10546,7 +10546,7 @@ MonoBehaviour:
   - {fileID: 235186714}
   - {fileID: 1679642304}
   - {fileID: 1895453031}
-  speed: 5
+  speed: 3
 --- !u!136 &971358148
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11626,7 +11626,7 @@ MonoBehaviour:
   - {fileID: 1054371482}
   - {fileID: 1248609461}
   - {fileID: 1782394868}
-  speed: 8
+  speed: 4
 --- !u!114 &1045685941
 MonoBehaviour:
   m_ObjectHideFlags: 0
